@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,14 +16,14 @@ public class MyUserDetails implements UserDetails {
     private String userName;
     private String password;
     private boolean active;
-    List<GrantedAuthority> authorities;
+    private List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
     public MyUserDetails(User user) {
         this.userName = user.getUsername();
         this.password = user.getPassword();
         this.active = user.getActive();
-        authorities.add(new SimpleGrantedAuthority("role_user"));
-        authorities.add(new SimpleGrantedAuthority("role_admin"));
+        this.authorities.add(new SimpleGrantedAuthority("role_user"));
+        this.authorities.add(new SimpleGrantedAuthority("role_admin"));
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
