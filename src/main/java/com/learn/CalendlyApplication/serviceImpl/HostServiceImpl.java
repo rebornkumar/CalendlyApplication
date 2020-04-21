@@ -26,9 +26,8 @@ public class HostServiceImpl implements HostService {
 
 
 
-    public void addSession(List<SessionDto> sessionDtoList) {
+    public void addSession(Integer hostId,List<SessionDto> sessionDtoList) {
         String errorMessage = "";
-        Integer hostId = 1;
         Optional<Host>host = hostRepo.findById(hostId);
         if(host.isPresent()) {
             for (SessionDto sessionDto : sessionDtoList) {

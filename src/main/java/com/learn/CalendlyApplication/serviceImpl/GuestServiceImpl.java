@@ -43,7 +43,7 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public synchronized void bookSessionForGuest(SessionBookingDto sessionBookingDto) {
+    public synchronized Optional<BookingDetailsDto> bookSessionForGuest(SessionBookingDto sessionBookingDto) {
         Optional<Session>hostSession = validateBookingSession(sessionBookingDto);
         if(hostSession.isPresent()) {
             BookingDetailsDto bookingDetailsDto = new BookingDetailsDto();
@@ -51,9 +51,11 @@ public class GuestServiceImpl implements GuestService {
             bookingDetailsDto.setSessionDate(sessionBookingDto.getDate());
             bookingDetailsDto.setSessionTime(sessionBookingDto.getTime());
             bookingDetailsDto.setGuestName("");
+            return Optional.of(bookingDetailsDto);
         }
         else {
             log.info("current session is unavailable");
+            return Optional.empty();
         }
     }
     private List<SessionDto> getSessionDtoFromSessions(List<Session>sessionList) {
