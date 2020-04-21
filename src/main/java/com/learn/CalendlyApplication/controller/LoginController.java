@@ -30,8 +30,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String autoLogin(@RequestParam String username, @RequestParam String password) {
-        securityService.autoLogin(username,password);
-        return "login successful";
+        return securityService.autoLogin(username,password);
     }
 
     @RequestMapping(value = "/",method = RequestMethod.GET)

@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NotNull
 public class SessionDto {
     private LocalDate sessionDate;
     private LocalTime sessionTime;

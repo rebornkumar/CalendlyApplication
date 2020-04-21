@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface HostService {
-    void addSession(Integer hostId,List<SessionDto> sessionDtoList);
+    List<String> addSession(Integer hostId,List<SessionDto> sessionDtoList);
 }

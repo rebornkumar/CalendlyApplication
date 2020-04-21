@@ -3,6 +3,7 @@ package com.learn.CalendlyApplication.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 //@Builder
@@ -12,7 +13,8 @@ import javax.persistence.*;
 @Setter
 @Table(name = "roles")
 @Entity
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")

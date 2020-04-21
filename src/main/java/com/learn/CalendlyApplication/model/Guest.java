@@ -4,6 +4,7 @@ package com.learn.CalendlyApplication.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Getter
@@ -12,7 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "guest")
 @Entity
-public class Guest {
+public class Guest implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

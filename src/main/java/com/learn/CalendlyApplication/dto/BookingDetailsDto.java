@@ -1,6 +1,7 @@
 package com.learn.CalendlyApplication.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +20,9 @@ public class BookingDetailsDto {
     private String guestName;
     @NotEmpty
     private String hostName;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate sessionDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm:ss")
     private LocalTime sessionTime;
     private String duration = "60 minutes";
 }
