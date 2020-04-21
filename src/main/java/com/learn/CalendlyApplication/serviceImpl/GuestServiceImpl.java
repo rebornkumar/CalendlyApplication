@@ -42,7 +42,6 @@ public class GuestServiceImpl implements GuestService {
         log.info("Total host : {} ",hostList.size());
         return hostDtoList;
     }
-
     @Override
     public List<SessionDto> getSessionsForDayFromHost(Integer hostId, LocalDate sessionDate) {
         String date = CalendarUtil.fromLocalDateToString(sessionDate);
@@ -52,7 +51,6 @@ public class GuestServiceImpl implements GuestService {
         return sessionDtoList;
     }
 
-
     @Override
     @Transactional
     public synchronized Optional<BookingDetailsDto> bookSessionForGuest(SessionBookingDto sessionBookingDto) {
@@ -61,9 +59,10 @@ public class GuestServiceImpl implements GuestService {
             String loggedInUsername = securityService.findLoggedInUsername();
             BookingDetailsDto bookingDetailsDto = new BookingDetailsDto();
             bookingDetailsDto.setHostName(hostSession.get().getHost().getUser().getFirstName() + " " + hostSession.get().getHost().getUser().getLastName());
-            bookingDetailsDto.setSessionDate(sessionBookingDto.getDate());
-            bookingDetailsDto.setSessionTime(sessionBookingDto.getTime());
+            bookingDetailsDto.setSessionDate(sessionBookingDto.getSessionDto().getSessionDate());
+            bookingDetailsDto.setSessionTime(sessionBookingDto.getSessionDto().getSessionTime());
             bookingDetailsDto.setGuestName(loggedInUsername);
+            hostSession.get().setIsBookable(false);
             log.info("Session booked for user {} with host : {} on date {} and time {}",bookingDetailsDto.getGuestName(),bookingDetailsDto.getHostName(),bookingDetailsDto.getSessionDate(),bookingDetailsDto.getSessionTime());
             return Optional.of(bookingDetailsDto);
         }
@@ -85,9 +84,8 @@ public class GuestServiceImpl implements GuestService {
         return sessionDtoList;
     }
     private Optional<Session> validateBookingSession(SessionBookingDto sessionBookingDto) {
-        Boolean isValid = false;
-        String localDate = CalendarUtil.fromLocalDateToString(sessionBookingDto.getDate());
-        String localTime = CalendarUtil.fromLocalTimeToString(sessionBookingDto.getTime());
+        String localDate = CalendarUtil.fromLocalDateToString(sessionBookingDto.getSessionDto().getSessionDate());
+        String localTime = CalendarUtil.fromLocalTimeToString(sessionBookingDto.getSessionDto().getSessionTime());
         Optional<Session>hostSession = sessionRepo.findByHostIdAndDateAndTime(sessionBookingDto.getHostId(),localDate,localTime);
         if(hostSession.isPresent() && hostSession.get().getIsBookable() == true) {
             return hostSession;

@@ -1,6 +1,7 @@
 package com.learn.CalendlyApplication.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.learn.CalendlyApplication.model.Session;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,6 @@ import java.time.LocalTime;
 public class SessionBookingDto {
     private Integer hostId;
     private Integer guestId;
-    private LocalDate date;
-    private LocalTime time;
+    @NotNull
+    private SessionDto sessionDto;
 }

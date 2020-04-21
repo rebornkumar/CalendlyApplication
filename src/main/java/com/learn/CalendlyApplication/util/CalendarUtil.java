@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ public class CalendarUtil {
         return localDate.format(DATE_FORMATTER);
     }
     public static String fromLocalTimeToString(LocalTime localTime) {
-        return localTime.format(TIME_FORMATTER);
+        LocalTime updatedLocalTime = localTime.truncatedTo(ChronoUnit.HOURS);
+        return updatedLocalTime.format(TIME_FORMATTER);
     }
     public static LocalDate fromStringToLocalDate(String localDate) {
         return LocalDate.parse(localDate, DATE_FORMATTER);
