@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,9 @@ public class GuestServiceImpl implements GuestService {
             bookingDetailsDto.setSessionTime(sessionBookingDto.getSessionDto().getSessionTime());
             bookingDetailsDto.setGuestName(loggedInUsername);
             hostSession.get().setIsBookable(false);
+            LocalDateTime createdAt = LocalDateTime.now();
+            hostSession.get().setSessionBookedAt(createdAt.toString());
+            sessionRepo.save(hostSession.get());
             log.info("Session booked for user {} with host : {} on date {} and time {}",bookingDetailsDto.getGuestName(),bookingDetailsDto.getHostName(),bookingDetailsDto.getSessionDate(),bookingDetailsDto.getSessionTime());
             return Optional.of(bookingDetailsDto);
         }
