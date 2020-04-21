@@ -1,6 +1,7 @@
 package com.learn.CalendlyApplication.security;
 
 
+import com.learn.CalendlyApplication.model.Role;
 import com.learn.CalendlyApplication.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,8 +23,9 @@ public class MyUserDetails implements UserDetails {
         this.userName = user.getUsername();
         this.password = user.getPassword();
         this.active = user.getActive();
-        this.authorities.add(new SimpleGrantedAuthority("role_user"));
-        this.authorities.add(new SimpleGrantedAuthority("role_admin"));
+        for(Role role : user.getRoles()) {
+            this.authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        }
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

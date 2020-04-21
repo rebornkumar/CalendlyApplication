@@ -12,7 +12,7 @@ public class RegistrationValidator implements Validator {
     }
 
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "field.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "field.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required");
         User login = (User) target;
         if (login.getPassword() != null
