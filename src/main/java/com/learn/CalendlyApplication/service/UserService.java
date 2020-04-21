@@ -2,8 +2,10 @@ package com.learn.CalendlyApplication.service;
 
 import com.learn.CalendlyApplication.model.User;
 
+import java.util.Optional;
+
 public interface UserService {
-    User findUserByEmail(String email);
-    User findUserByUsername(String userName);
+    Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByUsername(String userName);
     void saveUser(User user);
 }

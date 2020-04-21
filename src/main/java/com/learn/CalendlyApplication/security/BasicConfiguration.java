@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,25 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class BasicConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-//                .passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(myUserDetailsService);
     }
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.parentAuthenticationManager(authenticationManagerBean());
-//        auth.userDetailsService(myUserDetailsService);
-//    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
@@ -40,23 +32,18 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 
         String loginPage = "/login";
         String logoutPage = "/logout";
-
-        http.
-                authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/host/**").hasRole("ADMIN")
+                .antMatchers("/guest/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/registration/**").permitAll()
                 .antMatchers("/**").permitAll()
-                .antMatchers(loginPage).permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage(loginPage)
                 .loginPage("/")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/admin/home")
-                .usernameParameter("username")
-                .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).and().exceptionHandling();
