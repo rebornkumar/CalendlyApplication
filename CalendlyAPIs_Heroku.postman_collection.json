@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "d5739ba8-0141-4266-8d4a-9db7d7165715",
+		"name": "CalendlyAPIs_Heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/login/?username=devTester&password=Tester@123",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://intense-taiga-19871.herokuapp.com/auto/login/?username=devTester2&password=Tester2@123",
+					"protocol": "https",
+					"host": [
+						"intense-taiga-19871",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auto",
+						"login",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "devTester2"
+						},
+						{
+							"key": "password",
+							"value": "Tester2@123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/host/create?hostId=2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Tester2@123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "devTester2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"sessionDate\": \"2020-06-27\",\n        \"sessionTime\": \"19:06:41\"\n    },\n     {\n        \"sessionDate\": \"2020-06-27\",\n        \"sessionTime\": \"16:06:41\"\n    },\n     {\n        \"sessionDate\": \"2020-07-29\",\n        \"sessionTime\": \"21:06:41\"\n    }\n]\n ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://intense-taiga-19871.herokuapp.com/host/create?hostId=2",
+					"protocol": "https",
+					"host": [
+						"intense-taiga-19871",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"host",
+						"create"
+					],
+					"query": [
+						{
+							"key": "hostId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/guest/all/host",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://intense-taiga-19871.herokuapp.com/guest/all/host",
+					"protocol": "https",
+					"host": [
+						"intense-taiga-19871",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"guest",
+						"all",
+						"host"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/guest/get/session?hostId=2&localDate=27-06-2020",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://intense-taiga-19871.herokuapp.com/guest/get/session?hostId=2&localDate=27-06-2020",
+					"protocol": "https",
+					"host": [
+						"intense-taiga-19871",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"guest",
+						"get",
+						"session"
+					],
+					"query": [
+						{
+							"key": "hostId",
+							"value": "2"
+						},
+						{
+							"key": "localDate",
+							"value": "27-06-2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/guest/book/session/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hostId\": 2,\n    \"guestId\": 2,\n    \"sessionDto\": {\n        \"sessionDate\": \"2020-06-27\",\n        \"sessionTime\": \"19:00:00\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://intense-taiga-19871.herokuapp.com/guest/book/session",
+					"protocol": "https",
+					"host": [
+						"intense-taiga-19871",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"guest",
+						"book",
+						"session"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
