@@ -40,13 +40,15 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
-                .loginPage(loginPage)
-                .loginPage("/")
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
                 .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).and().exceptionHandling();
+//                .loginPage(loginPage)
+//                .loginPage("/")
+//                .failureUrl("/login?error=true")
+//                .defaultSuccessUrl("/admin/home")
+//                .and().logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
+//                .logoutSuccessUrl(loginPage).and().exceptionHandling();
     }
     @Override
     @Bean

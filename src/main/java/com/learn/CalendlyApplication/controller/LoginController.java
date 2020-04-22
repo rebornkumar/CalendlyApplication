@@ -28,12 +28,12 @@ public class LoginController {
     @Autowired
     private SecurityService securityService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/auto/login",method = RequestMethod.GET)
     public String autoLogin(@RequestParam String username, @RequestParam String password) {
         return securityService.autoLogin(username,password);
     }
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/login"},method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
